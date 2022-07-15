@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/video/catalogo.css') }}">
+<!-- <div class="banner-container container-fluid">
+    <img src="../../static/assets/img/catalogo-banner.png" class="banner img-fluid"></img>
+</div>  -->
+
+<!--Usei bootstrap para fazer o layout, mas usei css também, para não deixar o html tão verboso. Declaração de cores e mais algumas outras coisas fiz no css, já que não muda muito em usar css ou bootstrap nesses casos. -->
+{% set var = "adm" %}
+<section class="videos-section">
+    {% if videos %}
+    <div class="container">
+        <div class="row" id="row-0">
+        {% for v in videos %} 
+            {% if v.habilitado != 0 or var == "adm" %}
+                {% set image_path = '../static/assets/img/' + v.titulo + '.' + v.id|string + '.' + v.formatos.split('/')[1] %}
+                <!--img_path = titulo.id.formato-->
+                <!--image_path é o caminho para image. O nome do vídeo deve ser igual ao nome da imagem. Basicamente, quando houver um upload de um video, terá uma de imagem. Setamos o nome da imagem igual ao do vídeo..-->
+                <a class="video-link video-link-0 py-3" href="{{ url_for('video.view', videoid=v.id) }}"><div class="video-box card mx-4 px-2" style="background: linear-gradient(to bottom, rgba(0, 0, 0, 0.5) 100%, transparent), url({{image_path}})">
+                    <!-- style="background: url({{image_path}}); -->
+                        <!-- <div class="col-md-12">
+                            <img src="{{ url_for('static', filename='assets/img/'+image_path) }}" class="video-thumbnail img-fluid">
+                        </div> -->
+                        <div class="video-descricao col-md-12 d-flex flex-column justify-content-end">
+                            <h5 class="video-descricao_titulo">{{ v.titulo }}</h5>
+                            <p class="video-descricao_resumo"> {{ v.descricao }}</p>
+                            <!-- {% if v.habilitado == 1 and var =="adm" %}
+                                <p>Habilitado</p>
+                            {% endif %}
+                            {% if v.habilitado == 0 and var =="adm" %}
+                                <p>Desabilitado</p>
+                            {% endif %} -->
+                            <!-- <a class="link" href="{{ url_for('video.view', videoid=v.id) }}">Assistir</a> -->
+                        </div>
+                    </div></a> 
+            {% endif %}
+        {% endfor %}
+        </div>
+    </div>
+    {% else %}
+        <h1 class="text-center">Não há nenhum vídeo disponível. Por favor, peça a um moderador para saber mais. Caso você seja um moderador, você pode fazer o upload de vídeo <a href="{{url_for('video.studio') }}">aqui</a></h1>
+    {% endif %}
+</section>
+<nav class="nav-catalogo">
+    <span class="nav__item" onclick="change_userSection('prev')"><i class="fa-solid fa-chevron-left"></i></span>
+    <span class="nav__item" onclick="change_userSection('next')"><i class="fa-solid fa-chevron-right"></i></span>
+</nav>
+
+<script src="{{ url_for('static', filename='js/videos-scripts/card-descricao.js') }}"></script>
+<script src="{{ url_for('static', filename='js/videos-scripts/create-sections.js') }}"></script>
+{% endblock %}

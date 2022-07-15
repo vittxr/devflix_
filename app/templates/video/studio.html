@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="upload__container px-5 py-5">
+       {% include 'formulario.html' %}
+    </div>
+
+    
+    <!--Edit de vídeo: -->
+
+    
+<!--Esse alert é exibido toda vez que a página é recarregada - arrumar isso.-->
+{% if message %}
+<script>
+   alert("{{ message }}")
+</script>
+{% endif %}
+{% endblock %}

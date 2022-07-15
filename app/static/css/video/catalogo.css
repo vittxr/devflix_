@@ -1,0 +1,48 @@
+.videos-section {
+    padding: 3%; 
+    position: relative;
+}
+
+.video-link {
+    width: 33%;
+    text-decoration: none;  
+} 
+
+.video-box {
+    padding: 0;
+    width: 100%;
+    height: 15rem;
+    color: white;
+    background-size: cover !important;
+    background-position: center !important;
+}
+
+.video-box:hover {
+    opacity: 0.75;   
+}
+
+.video-descricao {
+    height: 100%; 
+}
+
+.nav-catalogo {
+    position: absolute;
+    bottom: 2%;
+    left: 50%;
+       /*aparentemente essa é a melhor forma de alinhar um elemento, pois ele é responsivo.*/
+ }
+ 
+ .nav__item {
+     padding: 1rem;
+     margin: 0 1.5rem;
+     background: white;
+     border-radius: 45%;
+     box-shadow: 1px 1px 50px rgba(0, 0, 0, 0.1);
+     cursor: pointer;
+     transition: .2s ease-in-out;
+ }
+ 
+ .nav__item:hover {
+     color: white;
+     background: #222222;
+ }

@@ -1,0 +1,47 @@
+{% if url_for(request.endpoint) == "/video/view" %}
+<form method=post enctype=multipart/form-data action="editar_video">
+{% else %}
+<form method=post enctype=multipart/form-data action="upload">
+{% endif %}
+    <!--
+      enctype=multipart/form-data é necessário quando o formulário contém um input type='file'.
+      ps: é pro servidor saber como lidar com a informação
+    -->
+    <!-- url_for(request.endpoint) pega a rota atual do usuário, sem o protocolo e a porta (127.0.0.1:5000)-->
+    <div class="input-box form-group ">
+      <label id="titulo" class="form-label">Titulo</label>
+      {% if video %}
+      <input type="hidden" value="{{ video.titulo + '.' + video.id|string }}" name="titulo_antigo">
+      <input type="hidden" value="{{ video.formatos }}" name="formatos">
+      <input type="hidden" value="{{ video.id }}" name="idvideo">
+         <!--Esses inputs de tipo hidden (escondido) serão necessário para editar o vídeo, pois é preciso saber o titulo antigo -->
+      
+      <input id="titulo" type="text" placeholder="novo titulo do vídeo..." name="titulo" class="form-control" value="{{ video.titulo }}" required>
+      {% else %} 
+      <input id="titulo" type="text" placeholder="titulo do vídeo..." name="titulo" class="form-control" required>
+      {% endif %}
+    </div>
+    <div class="input-box form-group">
+      <label id="descricao" class="form-label">Descricao</label>
+      {% if video %}
+      <input id="titulo" type="text" placeholder="nova descricao do video..." name="descricao" class="form-control" value="{{ video.descricao }}" required>
+      {% else %}
+      <input id="descricao" type="text" placeholder="descricao do vídeo..." name="descricao" class="form-control" required>
+      {% endif %}
+   </div>
+
+   {% if url_for(request.endpoint) == "/video/studio" %}
+   <div class="input-box form-group">
+      <label id="video" class="form-label">Video</label>
+      <input id="video" type="file" name="video" class="form-control form-control-sm" required>
+   </div>
+   <div class="input-box form-group">
+      <label id="thumbnail" class="form-label">Thumbnail</label>
+      <input id="thumbnail" type="file" name="thumbnail" class="form-control form-control-sm" required>
+   </div>
+   {% endif %}
+
+   <div class="input-box form-group text-center my-4">
+      <input type="submit" class="btn btn-primary">
+   </div>
+ </form>

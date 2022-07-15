@@ -1,0 +1,34 @@
+<div id="layoutSidenav_nav">
+    <nav class="sb-sidenav accordion" style=" background-image: linear-gradient(to top left, #00001a, #182e54);"id="sidenavAccordion">
+        <div class="sb-sidenav-menu">
+            <div class="nav">              
+                <a class="nav-link" href="{{ url_for('auth.login') }}">
+                    <div class="sb-nav-link-icon" style="color: white;"><i class="fas fa-solid fa-sign-in"></i></div>
+                    <div style="color: white; margin: auto;">
+                        Login
+                    </div>
+                </a>
+                <a class="nav-link" href="{{ url_for('auth.registro') }}">
+                    <div class="sb-nav-link-icon"  style="color: white;"><i class="fas fa-solid fa-user-plus"></i></div>
+                    <div style="color: white; margin: auto;">
+                        Registro
+                    </div>
+                </a>
+                <a class="nav-link" href="{{ url_for('video.catalogo') }}">
+                    <div class="sb-nav-link-icon"  style="color: white;"><i class="fa-solid fa-film"></i></div>
+                    <div style="color: white; margin: auto;">
+                        Catalogo de vídeos
+                    </div>
+                </a>
+                
+                <!--Fazer upload deve ser mostrado na lateral_bar apenas para usuários com determinadas condições. Por isso, aqui deve-se ter uma condição tipo: if current_user.role.permission_name == "moderador" -->
+                <a class="nav-link" href="{{ url_for('video.studio') }}">
+                    <div class="sb-nav-link-icon"  style="color: white;"><i class="fa-solid fa-upload"></i></div>
+                    <div style="color: white; margin: auto;">
+                        Fazer upload
+                    </div>
+                </a>
+            </div>
+        </div>
+    </nav>
+</div>
