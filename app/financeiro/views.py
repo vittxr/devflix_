@@ -1,27 +1,36 @@
 from app.financeiro import financeiro
 from app.models import Cartao, User
-from flask import request, render_template
+from flask import request, render_template, redirect, url_for
 from flask_login import current_user
+from app import db
+
 
 @financeiro.route("/", methods=['GET', 'POST' ])
+#@login_required #(precisa estar logado)
 def planos():
     return render_template("financeiro/planos.html")
 
 @financeiro.route("/pagamento", methods=['GET', 'POST' ])
+#@login_required #(precisa estar logado)
 def dados_cartao():
-    novo_cartao = Cartao()
-    novo_cartao.nome = request.form.get("nome")
-    novo_cartao.numero = request.form.get("n_cartao")
-    novo_cartao.validade = request.form.get("validade")
-    novo_cartao.user_id = current_user.id
+    if request.form :
+        novo_cartao = Cartao()
+        novo_cartao.nome = request.form.get("nome")
+        novo_cartao.numero = request.form.get("n_cartao")
+        novo_cartao.validade = request.form.get("validade")
+        novo_cartao.user_id = current_user.id
 
+        db.session.add(novo_cartao)
+        db.session.commit()
+        return redirect(url_for("agradecimento"))
     # cartao_existe = requests.get("https//:cartaoexiste/cartao?nome={novo_cartao.nome}, cc{novo_cartao.numero}") 
       #será preciso verificar se o cartão existe na api que o professor gerou, a qual contém os cartões existentes.
 
-    return redi
+    return redirect(url_for("planos", message="Ops, algo deu errado"))
     #return render_template("financeiro/dados_cartao.html")
 
 @financeiro.route("/agradecimento")
+#@login_required #(precisa estar logado)
 def agradecimento():
     return render_template("financeiro/agradecimento.html")
 
