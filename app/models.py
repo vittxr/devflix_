@@ -54,6 +54,7 @@ class Video(db.Model): #Classe cria tabela com as informações dos vídeos (cam
 class Cartao(db.Model):
     _tablename_ = 'cartoes'
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    nome =db.Column(db.String(64), nullble=False)
     bandeira = db.Column(db.String(16))
     numero = db.Column(db.String(64), unique=True)
     validade = db.Column(db.Date)
