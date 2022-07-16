@@ -1,13 +1,20 @@
 # Inicio import bibliotecas
 from app import db
-from datetime import datetime
+from email.policy import default
+from flask import jsonify
+
+from faker import Faker
+from app import db, login_manager
+from datetime import datetime, timedelta
+from flask_login import UserMixin
+from werkzeug.security import generate_password_hash, check_password_hash
 # Termino import biblioteca
 
 class User(db.Model): # Classe com ORM - criar tabela usuário
     __tablename__="users" # Cria nome da tabela users
    
     # Inicio colunas  
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     nome = db.Column(db.String(64), nullable=False)
     cpf = db.Column(db.String(11), unique=True, nullable=False)
     email = db.Column(db.String(64),unique=True, nullable=False)
@@ -16,6 +23,7 @@ class User(db.Model): # Classe com ORM - criar tabela usuário
     # modificado_em = db.column(db.DateTime, nullable=False)
     ativo = db.Column(db.Boolean, default = True)
     role_id = db.Column(db.Integer, db.ForeignKey("roles.id")) # Coluna de papeis - chave estrangeira de Role()
+    cartoes = db.relationship('Cartao', backref="titular")
     # Término colunas tabela
 
     def __init__(self) -> None: # Método cria data/hora automático
@@ -25,7 +33,7 @@ class Role(db.Model): # Classe cria tabela de papeis
     __tablename__= "roles" # Cria nome da tabela roles
 
     # Inicio colunas
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     nome = db.Column(db.String(16), nullable= False)
     users = db.relationship("User", backref="role") # Cria relacionamento com User()
     # Término colunas 
@@ -42,5 +50,21 @@ class Video(db.Model): #Classe cria tabela com as informações dos vídeos (cam
       #Não estamos guardando o path (caminho) para o arquivo, pq não precisa. Todos vídeos e imagens upados serão renomeados para ter o titulo como nome de arquivo. Assim, o path será uma junção de titulo + formato.
 
     #data_upload #como fazer uma coluna que contenha a data de upload?
+
+class Cartao(db.Model):
+    _tablename_ = 'cartoes'
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    bandeira = db.Column(db.String(16))
+    numero = db.Column(db.String(64), unique=True)
+    validade = db.Column(db.Date)
+
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+
+    def to_dict(self):
+        return {
+            "bandeira": self.bandeira,
+            "numero": self.numero,
+            "validade": self.validade
+        }
 
     

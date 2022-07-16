@@ -3,6 +3,7 @@
 from flask import Flask
 from config import config
 from flask_sqlalchemy import SQLAlchemy
+from flask_login import login_manager
 # Termino import bibliotecas do flask
 
 # Scripts para futura utilização
