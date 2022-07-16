@@ -1,7 +1,38 @@
 {% extends 'base.html' %}
 
+
+{% include 'financeiro/dados_cartao.html'%}
+
 {% block content %}
     <section class="planos container row"> 
-        <div></div>
+        <div class="card-deck mb-3 text-center">
+            <div class="card mb-4 box-shadow">
+              <div class="card-header">
+                <h4 class="my-0 font-weight-normal">Plano Mensal</h4>
+              </div>
+              <div class="card-body">
+                <h1 class="card-title pricing-card-title">$29,90</h1>
+                <ul class="list-unstyled mt-3 mb-4">
+                  <li>Acesso a todos vídeos</li>
+                  <li>Suporte</li>
+                  <li>1 mês</li>
+                </ul>
+                <button type="button" class="btn btn-lg btn-block btn-primary" data-bs-toggle="modal" data-bs-target="#dados_cartao-modal">Assinar</button>
+              </div>
+            </div>
+            <div class="card mb-4 box-shadow">
+              <div class="card-header">
+                <h4 class="my-0 font-weight-normal">Plano anual</h4>
+              </div>
+              <div class="card-body">
+                <h1 class="card-title pricing-card-title">$298,80 - 12x $24,90 </h1>
+                <ul class="list-unstyled mt-3 mb-4">
+                  <li>Acesso a todos vídeos</li>
+                  <li>Suporte</li>
+                  <li>1 ano</li>
+                </ul>
+                <button type="button" class="btn btn-lg btn-block btn-primary" data-bs-toggle="modal" data-bs-target="#dados_cartao-modal">Assinar</button>
+              </div>
+            </div>
     </section>
 {% endblock %}
